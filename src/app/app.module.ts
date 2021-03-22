@@ -70,7 +70,7 @@ const routes: Routes = [
     MembersPageComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     BrowserModule,
     HttpClientModule,
     NgbModule,
