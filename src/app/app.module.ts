@@ -15,10 +15,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
+ 
+ 
 import {
   OKTA_CONFIG,
   OktaAuthModule,
@@ -28,6 +30,8 @@ import {
 
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { LoginsucessComponent } from './components/loginsucess/loginsucess.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth, injector) => {
@@ -43,6 +47,9 @@ const routes: Routes = [
 
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'loginsucess',component:LoginsucessComponent},
+
+  {path:'registeruser',component:RegistrationComponent},
 
   {path: 'checkout', component: CheckoutComponent},
   {path: 'cart-details', component: CartDetailsComponent},
@@ -51,8 +58,10 @@ const routes: Routes = [
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
-  {path: '**', redirectTo: '/products', pathMatch: 'full'}
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '**', redirectTo: '/login', pathMatch: 'full'}
+  // {path: '', redirectTo: '/products', pathMatch: 'full'},
+  // {path: '**', redirectTo: '/products', pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -67,7 +76,9 @@ const routes: Routes = [
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
-    MembersPageComponent
+    MembersPageComponent,
+    RegistrationComponent,
+    LoginsucessComponent
   ],
   imports: [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
@@ -75,9 +86,10 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    OktaAuthModule
+    OktaAuthModule,
+     FormsModule
   ],
-  providers: [ProductService, { provide: OKTA_CONFIG, useValue: oktaConfig }],
+  providers: [  ProductService, { provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

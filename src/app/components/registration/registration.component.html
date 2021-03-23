@@ -6,14 +6,14 @@
 
 <body>
     <div id="login">
-        <h3 class="text-center text-white pt-5">Login form</h3>
+        <h3 class="text-center text-white pt-5">Registration form</h3>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form #loginForm="ngForm" (ngSubmit)="loginUser()">
+                        <form #registrationForm="ngForm" (ngSubmit)="registerUser()">
                             <h4 class="text-danger">{{msg}}</h4>
-                            <h3 class="text-center text-info">Login</h3>
+                            <h3 class="text-center text-info">Register</h3>
                             <div class="form-group">
                                 <label class="text-info">Email ID:</label><br>
                                 <input type="email" name="emailId" class="form-control" [(ngModel)]="user.emailId"
@@ -27,6 +27,23 @@
                                     <small class="text-danger" *ngIf="email.errors.pattern">Enter Valid Email</small>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="text-info">User Name:</label><br>
+                                <input type="text" name="userName" class="form-control" [(ngModel)]="user.userName"
+                                    required #userName="ngModel"
+                                    [class.is-invalid]="userName.invalid && userName.touched">
+                                <!-- <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email Id is
+                                    Required Field</small> -->
+
+                                <div *ngIf="userName.errors && userName.invalid && userName.touched">
+                                    <small class="text-danger" *ngIf="userName.errors.required">User Name Is
+                                        Required</small>
+
+                                </div>
+                            </div>
+
+
                             <div class="form-group">
                                 <label class="text-info"> Password:</label><br>
                                 <input type="text" name="password" class="form-control" [(ngModel)]="user.password"
@@ -37,18 +54,30 @@
                                     Required Field</small>
 
                             </div>
+
                             <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input
-                                            id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <button [disabled]="loginForm.invalid" type="submit"
-                                    class="btn btn-info btn-md">Login</button>
+                                <label class="text-info">Re-Enter Password:</label><br>
+                                <input type="text" name="cpassword" class="form-control" (ngModel)="user.password"
+                                    #cpassword="ngModel" required
+                                    [class.is-invalid]="cpassword.invalid && cpassword.touched">
+                                <small class="text-danger" [class.d-none]="(password.value==cpassword.value) || cpassword.untouched">
+                                    Password & Confirm Password Should Match</small>
+
+                            </div>
+
+                            <div class="form-group">
+                                <!-- <label for="remember-me" class="text-info"><span>Remember me</span> <span><input
+                                            id="remember-me" name="remember-me" type="checkbox"></span></label> -->
+                                            <br>
+                                <button [disabled]="registrationForm.invalid" type="submit"
+                                    class="btn btn-info btn-md">Register</button>
 
                             </div>
 
                         </form>
 
                         <div id="register-link" class="text-right">
-                            <button  class="text-info"  (click)="goToRegistration()">Register here</button>
+                         <a class="text-info" [routerLink]="['/login']">Login Here</a> 
                         </div>
                     </div>
                 </div>

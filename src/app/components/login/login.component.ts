@@ -1,8 +1,13 @@
+
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { OktaAuthService } from '@okta/okta-angular';
 import * as OktaSignIn from '@okta/okta-signin-widget';
+import { User } from 'src/app/common/user';
 
 import myAppConfig from '../../config/my-app-config';
+import { RegistrationService } from '../../services/registration.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +17,13 @@ import myAppConfig from '../../config/my-app-config';
 export class LoginComponent implements OnInit {
 
   oktaSignin: any;
+  user = new User();
+  msg='';
 
-  constructor(private oktaAuthService: OktaAuthService) { 
+  constructor(private oktaAuthService: OktaAuthService,
+    private service: RegistrationService,
+    private router: Router
+  ) {
 
     this.oktaSignin = new OktaSignIn({
       logo: 'assets/images/logo.png',
@@ -36,7 +46,8 @@ export class LoginComponent implements OnInit {
     this.oktaSignin.remove();
 
     this.oktaSignin.renderEl({
-      el: '#okta-sign-in-widget'}, // this name should be same as div tag id in login.component.html
+      el: '#okta-sign-in-widget'
+    }, // this name should be same as div tag id in login.component.html
       (response) => {
         if (response.status === 'SUCCESS') {
           this.oktaAuthService.signInWithRedirect();
@@ -46,6 +57,29 @@ export class LoginComponent implements OnInit {
         throw error;
       }
     );
+  }
+
+
+
+  loginUser() {
+
+    this.service.loginUserFromRemote(this.user).subscribe(
+
+      data => {
+        console.log("Response Recieved");
+        this.router.navigate(['/loginsucess']);
+      },
+      error => {console.log("Exception Occured");
+      this.msg="Bad Credentials, please enter valid email Id & Password";
+    }
+
+    );
+  }
+
+  goToRegistration()
+  {
+    console.log("Go To Registration");
+    this.router.navigate(['/registeruser']);
   }
 
 }
