@@ -1,0 +1,27 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <p>image-uploader works!</p>
+
+
+            <h3>Image Uploading Module</h3>
+
+
+            <div>
+                <input type="file" (change)="onFileChanged($event)">
+
+                <img [src]="imgURL" height="200" *ngIf="imgURL">
+            </div>
+
+            <input type="button" (click)="onUpload()" value="upload">
+
+            <hr />
+
+            Received Image:
+
+            {{ receivedImageData['pic'] | json}}
+            <img [src]="convertedImage" width="100px" height="100px">
+
+        </div>
+    </div>
+</div>

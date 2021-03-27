@@ -32,6 +32,7 @@ import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginsucessComponent } from './components/loginsucess/loginsucess.component';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth, injector) => {
@@ -58,6 +59,7 @@ const routes: Routes = [
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
+  {path:'imageupload',component:ImageUploaderComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
   // {path: '', redirectTo: '/products', pathMatch: 'full'},
@@ -78,7 +80,8 @@ const routes: Routes = [
     LoginStatusComponent,
     MembersPageComponent,
     RegistrationComponent,
-    LoginsucessComponent
+    LoginsucessComponent,
+    ImageUploaderComponent
   ],
   imports: [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
