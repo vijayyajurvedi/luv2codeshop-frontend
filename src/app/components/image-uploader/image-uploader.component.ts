@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageModel } from '../../common/ImageModel'
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-image-uploader',
@@ -11,7 +12,7 @@ import { ImageModel } from '../../common/ImageModel'
 })
 export class ImageUploaderComponent implements OnInit {
 
-
+  private base_url= environment.apiUrl;
   constructor(private httpClient: HttpClient,
     private router: Router
     ) { }
@@ -65,7 +66,7 @@ if(this.filesize/1024 <= 1000)
     uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
 
 
-    this.httpClient.post('http://localhost:8080/check/upload', uploadData)
+    this.httpClient.post( this.base_url+'/check/upload', uploadData)
       .subscribe(
         res => {
           console.log(res);
@@ -87,7 +88,7 @@ if(this.filesize/1024 <= 1000)
   }
 
   getImages() {
-    this.httpClient.get('http://localhost:8080/check/getimages')
+    this.httpClient.get(this.base_url+'/check/getimages')
       .subscribe(
         res => {
 
