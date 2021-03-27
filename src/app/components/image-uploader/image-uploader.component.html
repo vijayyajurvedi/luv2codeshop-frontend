@@ -7,21 +7,58 @@
             <h3>Image Uploading Module</h3>
 
 
-            <div>
-                <input type="file" (change)="onFileChanged($event)">
+            <div class="row">
+                <div class="col-6">
+                    <input type="file" (change)="onFileChanged($event)" accept="image/jpeg">
 
-                <img [src]="imgURL" height="200" *ngIf="imgURL">
+                </div>
+                <div class="col-6">
+                    <img [src]="imgURL" width="75px" height="75px" *ngIf="imgURL">
+                </div>
+
+
             </div>
 
             <input type="button" (click)="onUpload()" value="upload">
 
             <hr />
 
-            Received Image:
+            <!-- <div class="container">
+                Received Image:
 
-            {{ receivedImageData['pic'] | json}}
-            <img [src]="convertedImage" width="100px" height="100px">
+                <div *ngIf="receivedImageData">
+                    {{ receivedImageData['pic'] | json}}
+                </div>
+                <img [src]="convertedImage" width="100px" height="100px">
+            </div> -->
 
+            <div class="row container">
+                <button class="btn btn-info" (click)="getImages()">Get All Images</button>
+            </div>
+
+
+            <h3 class="p-3 text-center">Angular - Display a list of Images</h3>
+            <div class="container">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let image of imagesrecieved">
+                            <td>{{image.name}}</td>
+                            <td> {{image.type}}</td>
+                            <td>
+                                <img src="data:image/png;base64,{{this.image.pic}}" alt="" width="75px" height="75px">
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
