@@ -1,0 +1,88 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+
+            <h1>Add New Product</h1>
+            <form #productAddForm="ngForm" (ngSubmit)="addProducts()">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Product Name"
+                            [(ngModel)]="product.name" required #name="ngModel"
+                            [class.is-invalid]="name.invalid && name.touched">
+
+                        <div *ngIf="name.errors && name.invalid && name.touched">
+                            <small class="text-danger" *ngIf="name.errors.required">Product Name Is Required</small>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="sku">SKU</label>
+                        <input type="text" class="form-control" name="sku" placeholder="SKU" [(ngModel)]="product.sku"
+                            required #sku="ngModel" [class.is-invalid]="sku.invalid && sku.touched">
+
+                        <div *ngIf="sku.errors && sku.invalid && sku.touched">
+                            <small class="text-danger" *ngIf="sku.errors.required">Product SKU Is Required</small>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" name="description" rows="3" [(ngModel)]="product.description"
+                        required #description="ngModel"
+                        [class.is-invalid]="description.invalid && description.touched"></textarea>
+
+                    <div *ngIf="description.errors && description.invalid && description.touched">
+                        <small class="text-danger" *ngIf="description.errors.required">Product Description Is
+                            Required</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="category">Category</label>
+
+                        <select id="category" class="form-control" name="category" [(ngModel)]="product.category"
+                            required  #category="ngModel"
+                            [class.is-invalid]="category.invalid && category.touched">
+                            <!-- <option selected>Choose...</option> -->
+                            <option *ngFor="let c of productCategories" value="{{c.id}}">{{c.categoryName}}</option>
+                        </select>
+
+                        <div *ngIf="category.errors && category.invalid && category.touched">
+                            <small class="text-danger" *ngIf="category.errors.required">Product Category Is
+                                Required</small>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="unit_price">Unit Price</label>
+                        <input type="text" class="form-control" name="unitPrice" [(ngModel)]="product.unitPrice"
+                            required  #unitPrice="ngModel" [class.is-invalid]="unitPrice.invalid && unitPrice.touched"
+                            pattern="^\d*(\.\d{0,2})?$">
+
+                            <div *ngIf="unitPrice.errors && unitPrice.invalid && unitPrice.touched">
+                                <small class="text-danger" *ngIf="unitPrice.errors.required">Unit Price Is Required</small>
+                                <small class="text-danger" *ngIf="unitPrice.errors.pattern">Only Numbers Allowed Upto Two Decimals Only</small>
+                            </div>
+
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="units_in_stock">Units in Stock</label>
+                        <input type="text" class="form-control" name="unitsInStock" [(ngModel)]="product.unitsInStock"
+                            required  #unitsInStock="ngModel" [class.is-invalid]="unitsInStock.invalid && unitsInStock.touched"
+                            pattern="[1-9][0-9]*$">
+
+                            <div *ngIf="unitsInStock.errors && unitsInStock.invalid && unitsInStock.touched">
+                                <small class="text-danger" *ngIf="unitsInStock.errors.required">Units In Stock Is Required</small>
+                                <small class="text-daunitsInStocknger" *ngIf="unitsInStock.errors.pattern">Only Integers Are Allowed</small>
+                            </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" [disabled]="productAddForm.invalid">Add</button>
+            </form>
+
+        </div>
+    </div>
+
+</div>

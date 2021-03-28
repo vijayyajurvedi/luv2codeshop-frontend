@@ -45,6 +45,7 @@
                             <th>Name</th>
                             <th>Type</th>
                             <th>Image</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,8 +54,23 @@
                             <td> {{image.type}}</td>
                             <td>
                                 <img src="data:image/png;base64,{{this.image.pic}}" alt="" width="75px" height="75px">
-
                             </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="btn btn-info">
+                                            <i class="fas fa-edit" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+
+                                        <a class="btn btn-danger">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>

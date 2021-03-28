@@ -25,6 +25,7 @@ export class RegistrationComponent implements OnInit {
 
       data => {
         console.log("Response Recieved");
+       
         this.msg="Registration Sucessfull";
         this.router.navigate(['/login']);
       },

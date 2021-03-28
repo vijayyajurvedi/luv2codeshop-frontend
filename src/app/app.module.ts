@@ -33,6 +33,8 @@ import { MembersPageComponent } from './components/members-page/members-page.com
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginsucessComponent } from './components/loginsucess/loginsucess.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
+import { ProductAddComponent } from './components/product-add/product-add.component';
+import { ProductCategoryAddComponent } from './components/product-category-add/product-category-add.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth, injector) => {
@@ -59,6 +61,11 @@ const routes: Routes = [
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
+ 
+  // For Admin
+  {path: 'productCategory/add',component:ProductCategoryAddComponent},
+  {path:'product/add',component:ProductAddComponent},
+  
   {path:'imageupload',component:ImageUploaderComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
@@ -81,7 +88,9 @@ const routes: Routes = [
     MembersPageComponent,
     RegistrationComponent,
     LoginsucessComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    ProductAddComponent,
+    ProductCategoryAddComponent
   ],
   imports: [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
