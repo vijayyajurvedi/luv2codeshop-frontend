@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../common/product';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from '../common/product-category';
 import { environment } from 'src/environments/environment';
+import { ImageModel } from '../common/ImageModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
+
   private bases_url = environment.apiUrl;
 
   private baseUrl = this.bases_url + '/api/products';
 
   private categoryUrl = this.bases_url + '/api/product-category';
+
+  private imagebynameUrl = this.bases_url + "/api/imageModels/search/findByImagenameContaining?name=";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -29,14 +33,19 @@ export class ProductService {
 
   addProduct(product: Product): Observable<any> {
     // need to build URL based on product id
-    const productUrl =  this.baseUrl ;
+    const productUrl = this.baseUrl;
     return this.httpClient.post(productUrl, product);
 
   }
 
-  addProductCategory(productCategory:  ProductCategory):Observable<any>
-  {
-    
+  getImageByName(selectedFile: any): Observable<ImageModel[]> {
+     
+    return this.httpClient.get<GetResponseImageModel>(this.imagebynameUrl   + selectedFile).pipe(
+      map(response => response._embedded.imageModel)
+    );
+  }
+
+  addProductCategory(productCategory: ProductCategory): Observable<any> {
     return this.httpClient.post(this.categoryUrl, productCategory);
   }
   getProductListPaginate(thePage: number,
@@ -108,5 +117,11 @@ interface GetResponseProducts {
 interface GetResponseProductCategory {
   _embedded: {
     productCategory: ProductCategory[];
+  }
+}
+
+interface GetResponseImageModel {
+  _embedded: {
+    imageModel: ImageModel[];
   }
 }

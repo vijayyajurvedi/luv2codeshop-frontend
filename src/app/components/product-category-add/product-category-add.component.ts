@@ -11,16 +11,16 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductCategoryAddComponent implements OnInit {
 
   productCategory = new ProductCategory();
-  productCategories:any;
+  productCategories: any;
   constructor(private productService: ProductService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.listProductCategories();
   }
-
+ 
   addProductCategorys() {
-    
+
     console.log(this.productCategory);
 
     this.productService.addProductCategory(this.productCategory).subscribe(
@@ -32,7 +32,7 @@ export class ProductCategoryAddComponent implements OnInit {
         this.listProductCategories();
       },
       error => {
-        console.log("Exception Occured");
+        alert("Error Occured, Cant Handle");
         //this.msg=error.error.message;
         console.log(error.error.message);
 
