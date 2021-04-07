@@ -77,6 +77,7 @@ export class ProductAddComponent implements OnInit {
           res => {
             console.log(res);
 
+            
 
             this.receivedImageData = res;
             this.base64Data = this.receivedImageData.pic;
@@ -87,7 +88,7 @@ export class ProductAddComponent implements OnInit {
             console.log(this.product);
             //Give Post Call For Product
 
-            //  {s
+            //  {  
 
             //   "name":"Books",
             //   "sku":"C++SKU",

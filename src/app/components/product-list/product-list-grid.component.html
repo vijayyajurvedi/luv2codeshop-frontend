@@ -9,12 +9,14 @@
                     <div class="product-box">
 
                         <a routerLink="/products/{{ tempProduct.id }}">
-                            <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
+                            <!-- <img src="{{ tempProduct.imageUrl }}" class="img-responsive"> -->
+                            <img src="data:image/png;base64,{{tempProduct.imageUrl}}"  alt="" width="75px" height="75px">
                         </a>
 
                         <a routerLink="/products/{{ tempProduct.id }}">
                             <h1>{{ tempProduct.name }}</h1>
                         </a>
+ 
                         
                         <div class="price">{{ tempProduct.unitPrice | currency:'USD' }}</div>
                         <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
