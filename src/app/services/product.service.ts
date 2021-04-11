@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from '../common/product-category';
 import { environment } from 'src/environments/environment';
-import { ImageModel } from '../common/ImageModel';
+ 
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +38,6 @@ export class ProductService {
 
   }
 
-  getImageByName(selectedFile: any): Observable<ImageModel[]> {
-     
-    return this.httpClient.get<GetResponseImageModel>(this.imagebynameUrl   + selectedFile).pipe(
-      map(response => response._embedded.imageModel)
-    );
-  }
 
   addProductCategory(productCategory: ProductCategory): Observable<any> {
     return this.httpClient.post(this.categoryUrl, productCategory);
@@ -120,8 +114,4 @@ interface GetResponseProductCategory {
   }
 }
 
-interface GetResponseImageModel {
-  _embedded: {
-    imageModel: ImageModel[];
-  }
-}
+ 

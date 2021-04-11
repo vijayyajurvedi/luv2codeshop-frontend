@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { timeoutWith } from 'rxjs/operators';
 import { CartItem } from 'src/app/common/cart-item';
 import { CartService } from 'src/app/services/cart.service';
-import { ImageModel } from 'src/app/common/ImageModel';
+
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -127,41 +127,7 @@ export class ProductListComponent implements OnInit {
 
       for (let a of this.products) {
 
-        //Get Image Link
-        let imagestring = a['_links']['imagename']['href'];
 
-
-        //Remove Prefix
-        imagestring = imagestring.replace('/imagename', '');
-        //console.log(this.baseurl + '/api/imageModels/search/findByid?id=1');
-        let imageid = imagestring.substr(imagestring.indexOf('products/') + 9, imagestring.length - imagestring.indexOf('products/'));
-        //console.log(`imageID: ${imageid}`);
-        //Get Image using ID
-        let imagegeturl = this.baseurl + '/api/imageModels/search/findByid?id=' + imageid;
-        //console.log(imagegeturl);
-        this.http.get(imagegeturl).subscribe(
-          res => {
-            //console.log(data);
-            this.imagesrecieved = res;
-            this.imagesrecieved.pic = res;
-            // console.log(this.imagesrecieved);
-            a.imageUrl = this.imagesrecieved.pic;
-            // console.log(a.imageUrl);
-            //console.log(res['imagename']);
-
-            let imagegeturl1 = this.baseurl + '/api/imageModels/search/findByImagenameContaining?name=' + res['imagename'];
-
-            this.http.get(imagegeturl1).subscribe(
-              res1 => {
-                //console.log(res1["_embedded"]["imageModels"][0]["pic"]);
-                let j = res1["_embedded"]["imageModels"][0]["pic"];
-                a.imageUrl = j;
-                //console.log(a.imageUrl);
-              }
-            );
-
-          }
-        );
 
         // <img src="data:image/png;base64,{{this.image.pic}}" alt="" width="75px" height="75px">
       }

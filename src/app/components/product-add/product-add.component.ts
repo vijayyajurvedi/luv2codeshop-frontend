@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ImageModel } from 'src/app/common/ImageModel';
+
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 import { environment } from 'src/environments/environment';
@@ -36,7 +37,7 @@ export class ProductAddComponent implements OnInit {
   receivedImageData: any;
   base64Data: any;
   convertedImage: any;
-
+  imageurlposted: String;
   imagesrecieved: any;
 
 
@@ -66,57 +67,59 @@ export class ProductAddComponent implements OnInit {
 
   addProducts(): any {
 
+    let isImageuploaded: boolean = false;
     if (this.filesize / 1024 <= 1000 && this.filesize > 0) {
       const uploadData = new FormData();
-      uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-      //uploadData.append('model',   JSON.stringify(this.product));
-      //console.log(uploadData.get('myFile'));
+      uploadData.append('file', this.selectedFile, this.selectedFile.name);
 
-      this.httpClient.post(this.base_url + '/check/upload', uploadData)
-        .subscribe(
-          res => {
-            console.log(res);
 
-            
+      //Upload Image 
+      this.httpClient.post(this.base_url + '/upload', uploadData).subscribe(
+        res => {
+          console.log("Image Uploaded Message:" + res['message']);
+        }
+        , error => {
+          console.log("Error Occoured for Upload Image");
+          //this.msg=error.error.message;
+          console.log(error.error.message);
+          alert(error.error.message);
+          this.router.navigate(['/product/add']);
+        }
+      );
 
-            this.receivedImageData = res;
-            this.base64Data = this.receivedImageData.pic;
-            this.convertedImage = 'data:image/jpeg;base64,' + this.base64Data;
-            //Saving Product Model
-            this.product.imagename = this.base_url+"/api/imageModels/" + res["id"];
-            this.product.category = this.base_url + "/api/product-category/" + this.product.category;
-            console.log(this.product);
-            //Give Post Call For Product
+      this.product.imageUrl = this.base_url + "/file/" + this.selectedFile.name;
+      this.product.category = this.base_url + "/api/product-category/" + this.product.category;
+      console.log(this.product);
 
-            //  {  
+      //Give Post Call For Product
 
-            //   "name":"Books",
-            //   "sku":"C++SKU",
-            //   "description":"The new C++11 standard allows programmers to express ideas more clearly, simply, and directly",
-            //   "unitPrice":50,
-            //   "unitsInStock":100,
-            //   "category":"http://localhost:8080/api/product-category/1",
-            //   "imagename":"http://localhost:8080/api/imageModels/1"
-            // }
+      //  {  
 
-            this.productService.addProduct(this.product).subscribe(
-              data => {
-                console.log("Response Recieved");
-                console.log(data);
-                alert("Product Added Sucessfully");
-                this.router.navigate(['/login']);
-              },
-              error => {
-                console.log("Exception Occured");
-                //this.msg=error.error.message;
-                console.log(error.error.message);
+      //   "name":"Books",
+      //   "sku":"C++SKU",
+      //   "description":"The new C++11 standard allows programmers to express ideas more clearly, simply, and directly",
+      //   "unitPrice":50,
+      //   "unitsInStock":100,
+      //   "category":"http://localhost:8080/api/product-category/1",
+      //   "imagename":"http://localhost:8080/api/imageModels/1"
+      // }
 
-              });
+      //Save Product
+      this.productService.addProduct(this.product).subscribe(
+        data => {
+          console.log("Response Recieved");
+          console.log(data);
+          alert("Product Added Sucessfully");
+          this.router.navigate(['/product/add']);
+        },
+        error => {
+          console.log("Exception Occured");
+          //this.msg=error.error.message;
+          console.log(error.error.message);
 
-            //return res;
-          },
-          err => console.log('Error Occured duringng saving: ' + err.message)
-        );
+        });
+
+
 
       // this.getImages();
     }
@@ -143,5 +146,5 @@ export class ProductAddComponent implements OnInit {
     );
   }
 
-  
+
 }

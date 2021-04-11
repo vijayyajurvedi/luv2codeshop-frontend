@@ -8,18 +8,20 @@
 
                     <div class="product-box">
 
-                        <a routerLink="/products/{{ tempProduct.id }}">
-                            <!-- <img src="{{ tempProduct.imageUrl }}" class="img-responsive"> -->
-                            <img src="data:image/png;base64,{{tempProduct.imageUrl}}"  alt="" width="75px" height="75px">
-                        </a>
+                        <div class="row"> <a routerLink="/products/{{ tempProduct.id }}">
+                                <!-- <img src="{{ tempProduct.imageUrl }}" class="img-responsive"> -->
+                                <img src="{{tempProduct.imageUrl}}" alt="" width="75px" height="75px"
+                                    class="img-responsive">
+                            </a></div>
 
-                        <a routerLink="/products/{{ tempProduct.id }}">
-                            <h1>{{ tempProduct.name }}</h1>
-                        </a>
- 
-                        
-                        <div class="price">{{ tempProduct.unitPrice | currency:'USD' }}</div>
-                        <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
+                        <div class="row">
+                            <a routerLink="/products/{{ tempProduct.id }}">
+                                <h1>{{ tempProduct.name }}</h1>
+                            </a>
+                        </div>
+
+                        <div class="price row">{{ tempProduct.unitPrice | currency:'USD' }}</div>
+                        <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm row">Add to cart</button>
                     </div>
 
                 </div>
@@ -39,13 +41,10 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-9" style="padding-left: 30%">
-                            
-                                <ngb-pagination [(page)]="thePageNumber"
-                                                [pageSize]="thePageSize"
-                                                [collectionSize]="theTotalElements"
-                                                [maxSize]="5"
-                                                [boundaryLinks]="true"
-                                                (pageChange)="listProducts()">
+
+                                <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                                    [collectionSize]="theTotalElements" [maxSize]="5" [boundaryLinks]="true"
+                                    (pageChange)="listProducts()">
 
                                 </ngb-pagination>
 
@@ -73,9 +72,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-

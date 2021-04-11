@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ImageModel } from '../../common/ImageModel'
+ 
 import { environment } from '../../../environments/environment';
 
 @Component({
