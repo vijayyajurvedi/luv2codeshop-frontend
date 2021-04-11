@@ -68,7 +68,7 @@ export class ProductAddComponent implements OnInit {
   addProducts(): any {
 
     let isImageuploaded: boolean = false;
-    if (this.filesize / 1024 <= 1000 && this.filesize > 0) {
+    if (this.filesize / 1024 <= 100000 && this.filesize > 0) {
       const uploadData = new FormData();
       uploadData.append('file', this.selectedFile, this.selectedFile.name);
 
@@ -86,11 +86,12 @@ export class ProductAddComponent implements OnInit {
           this.router.navigate(['/product/add']);
         }
       );
+      const cat = this.product.category;
 
       this.product.imageUrl = this.base_url + "/file/" + this.selectedFile.name;
-      this.product.category = this.base_url + "/api/product-category/" + this.product.category;
+      this.product.category = this.base_url + "/api/product-category/" + cat;
       console.log(this.product);
-
+      // alert(this.product);
       //Give Post Call For Product
 
       //  {  
